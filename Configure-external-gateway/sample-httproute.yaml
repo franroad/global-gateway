@@ -1,0 +1,38 @@
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1beta1
+metadata:
+  name: store
+  namespace: broker-online
+spec:
+  parentRefs:
+    - kind: Gateway
+      name: external-https
+  hostnames:
+    - "example.com"
+  rules:
+    # Catch-all route
+    - backendRefs:
+        - name: nginx-test
+          port: 8080
+    # Specific rule for /de with URL rewrite
+    - matches:
+        - path:
+            type: PathPrefix 
+            value: /de # catch the incoming request with /de
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            hostname: example.com
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /  # Rewrite the incoming "/de" path to "/" for the backend as nginx is not listening in /de
+      backendRefs:
+        - name: nginx-test
+          port: 8080
+    #Specific no rewrite
+    # - matches:
+    #   - path:
+    #       value: /afb-cls
+    #   backendRefs:
+    #   - name: nginx-test
+    #   port: 8080

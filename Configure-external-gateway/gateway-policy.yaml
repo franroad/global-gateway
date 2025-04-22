@@ -1,0 +1,12 @@
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: nginx-https
+  namespace: ns
+spec:
+  default:
+    securityPolicy: cloud-armor-security-policy
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx-test (the cluster-ip serivce)
