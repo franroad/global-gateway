@@ -1,4 +1,4 @@
-[Google reference]("https://cloud.google.com/kubernetes-engine/docs/how-to/deploying-gateways#deploy_a_global_external_gateway")
+[Google reference](https://cloud.google.com/kubernetes-engine/docs/how-to/deploying-gateways#deploy_a_global_external_gateway)
 
 # Prequisites:
 
